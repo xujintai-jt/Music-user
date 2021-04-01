@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-03-31 16:53:41
+ * @LastEditTime: 2021-04-01 14:39:01
  * @Description: file content
  * @FilePath: \music-fontEnd\music-shop\src\components\registered\registered.vue
 -->
@@ -38,6 +38,9 @@
 </template>
 
 <script>
+import request from "@/network/request.js";
+import qs from "qs";
+
 export default {
   data() {
     const checkAge = (rule, value, callback) => {
@@ -62,8 +65,8 @@ export default {
       } else {
         if (this.ruleForm.checkPass !== "") {
           this.$refs.ruleForm.validateField("checkPass");
-        } else if (value.length < 8) {
-          callback(new Error("密码长度不能少于8位!"));
+        } else if (value.length < 2) {
+          callback(new Error("密码长度不能少于2位!"));
         }
         callback();
       }
@@ -105,16 +108,32 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          // alert("submit!");
           console.log(this.ruleForm);
+          const instance = request();
+          //请求头"Content-Type"自动设置为"application/x-www-form-urlencoded"
+          const data = qs.stringify(this.ruleForm);
+          console.log(data);
+          const req = await instance.post("/login", data);
+          if (req.status === 200) {
+            return this.$message({
+              message: "恭喜你，注册成功",
+              type: "success",
+            });
+          }
+
+          this.$message({
+            message: "注册失败",
+            type: "success",
+          });
         } else {
           console.log("error submit!!");
           return false;
         }
       });
     },
+
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },

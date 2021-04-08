@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-01 15:51:04
+ * @LastEditTime: 2021-04-08 15:40:59
  * @Description: file content
  * @FilePath: \music-fontEnd\music-shop\src\components\login\Login.vue
 -->
@@ -32,6 +32,9 @@
 </template>
 
 <script>
+import request from "@/network/request.js";
+import qs from "qs";
+
 export default {
   data() {
     const validatePass = (rule, value, callback) => {
@@ -70,9 +73,23 @@ export default {
   methods: {
     submitForm(formName) {
       console.log(formName);
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          alert("submit!");
+          const instance = request();
+          //请求头"Content-Type"设置为"application/x-www-form-urlencoded"
+          const data = qs.stringify(this.ruleForm);
+          const req = await instance.post(`/login?${data}`);
+          if (req.status === 200) {
+            return this.$message({
+              message: req.data,
+              type: "success",
+            });
+          }
+
+          this.$message({
+            message: req.data,
+            type: "error",
+          });
         } else {
           console.log("error submit!!");
           return false;

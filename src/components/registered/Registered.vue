@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-08 15:01:48
+ * @LastEditTime: 2021-04-08 15:26:04
  * @Description: file content
  * @FilePath: \music-fontEnd\music-shop\src\components\registered\registered.vue
 -->
@@ -110,7 +110,6 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          console.log(this.ruleForm);
           const instance = request();
           //请求头"Content-Type"设置为"application/x-www-form-urlencoded"
           const data = qs.stringify(this.ruleForm);

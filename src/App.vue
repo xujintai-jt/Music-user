@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:26:58
  * @LastEditors: xujintai
- * @LastEditTime: 2021-03-31 15:57:08
+ * @LastEditTime: 2021-04-01 15:51:25
  * @Description: file content
  * @FilePath: \music-fontEnd\music-shop\src\App.vue
 -->
@@ -33,7 +33,7 @@
     color: #2c3e50;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #409eff;
     }
   }
 }

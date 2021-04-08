@@ -2,13 +2,13 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-01 14:39:01
+ * @LastEditTime: 2021-04-08 15:01:48
  * @Description: file content
  * @FilePath: \music-fontEnd\music-shop\src\components\registered\registered.vue
 -->
 <template>
   <div id="registered">
-    <h1>注册</h1>
+    <h1>新用户注册</h1>
     <el-form
       :model="ruleForm"
       status-icon
@@ -112,20 +112,19 @@ export default {
         if (valid) {
           console.log(this.ruleForm);
           const instance = request();
-          //请求头"Content-Type"自动设置为"application/x-www-form-urlencoded"
+          //请求头"Content-Type"设置为"application/x-www-form-urlencoded"
           const data = qs.stringify(this.ruleForm);
-          console.log(data);
-          const req = await instance.post("/login", data);
+          const req = await instance.post(`/registered?${data}`);
           if (req.status === 200) {
             return this.$message({
-              message: "恭喜你，注册成功",
+              message: req.data,
               type: "success",
             });
           }
 
           this.$message({
-            message: "注册失败",
-            type: "success",
+            message: req.data,
+            type: "error",
           });
         } else {
           console.log("error submit!!");
@@ -155,6 +154,9 @@ export default {
       .el-form-item__label {
         line-height: 61px;
         font-size: 20px;
+      }
+      .el-form-item__content {
+        margin-left: 25px;
       }
     }
   }

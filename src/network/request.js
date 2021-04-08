@@ -3,7 +3,7 @@ import axios from "axios";
 export default function request() {
   const instance = axios.create({
     baseURL: "http://127.0.0.1:8000",
-    timeout: 1000,
+    timeout: 2000,
   });
 
   //设置数据传输格式为FormData
@@ -13,7 +13,7 @@ export default function request() {
   instance.interceptors.request.use(
     function(config) {
       // 在发送请求之前做些什么
-      console.log(config);
+      // console.log(config);
       return config;
     },
     function(error) {

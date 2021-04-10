@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default function request() {
+export default function request(config) {
   const instance = axios.create({
     baseURL: "http://127.0.0.1:8000",
     timeout: 2000,
@@ -34,5 +34,5 @@ export default function request() {
     }
   );
 
-  return instance;
+  return instance(config);
 }

@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-08 15:40:59
+ * @LastEditTime: 2021-04-10 21:17:02
  * @Description: file content
  * @FilePath: \music-fontEnd\music-shop\src\components\login\Login.vue
 -->
@@ -28,12 +28,12 @@
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
+    <router-link to="/registered">去注册</router-link>
   </div>
 </template>
 
 <script>
-import request from "@/network/request.js";
-import qs from "qs";
+import { postLogin } from "@/network/login-register.js";
 
 export default {
   data() {
@@ -75,19 +75,21 @@ export default {
       console.log(formName);
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          const instance = request();
           //请求头"Content-Type"设置为"application/x-www-form-urlencoded"
-          const data = qs.stringify(this.ruleForm);
-          const req = await instance.post(`/login?${data}`);
-          if (req.status === 200) {
+          const req = await postLogin(this.ruleForm);
+          const { data, status } = req;
+          if (status === 200) {
+            const userInfo = JSON.stringify(this.ruleForm);
+            window.localStorage.setItem("userInfo", userInfo);
+            this.$router.push("/user-index");
             return this.$message({
-              message: req.data,
+              message: data,
               type: "success",
             });
           }
 
           this.$message({
-            message: req.data,
+            message: data,
             type: "error",
           });
         } else {

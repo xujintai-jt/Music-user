@@ -2,16 +2,12 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:26:58
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-01 15:51:25
+ * @LastEditTime: 2021-04-08 16:59:27
  * @Description: file content
  * @FilePath: \music-fontEnd\music-shop\src\App.vue
 -->
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/login">登陆</router-link>|
-      <router-link to="/registered">注册</router-link>
-    </div>
     <router-view />
   </div>
 </template>

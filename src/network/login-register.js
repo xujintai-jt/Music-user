@@ -6,7 +6,7 @@ export function postLogin(reqBody) {
   const query = qs.stringify(reqBody);
   return request({
     method:"post",
-    url: `/login?${query}`
+    url: `/userLogin?${query}`
   })
 }
 
@@ -14,6 +14,6 @@ export function postRegister(reqBody) {
   const query = qs.stringify(reqBody);
   return request({
     method:"post",
-    url: `/registered?${query}`
+    url: `/userRegistered?${query}`
   })
 }

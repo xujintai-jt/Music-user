@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:26:58
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-08 16:59:27
+ * @LastEditTime: 2021-04-11 15:15:03
  * @Description: file content
  * @FilePath: \music-fontEnd\music-shop\src\App.vue
 -->
@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped="scoped">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-10 21:21:15
+ * @LastEditTime: 2021-04-11 16:35:32
  * @Description: file content
  * @FilePath: \music-fontEnd\music-shop\src\components\registered\Registered.vue
 -->
@@ -116,7 +116,7 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           //请求头"Content-Type"设置为"application/x-www-form-urlencoded"
-          const req = await postRegister(`/registered?${this.ruleForm}`);
+          const req = await postRegister(this.ruleForm);
           const { data, status } = req;
           if (status === 200) {
             return this.$message({

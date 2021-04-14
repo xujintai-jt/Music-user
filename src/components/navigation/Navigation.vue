@@ -2,9 +2,9 @@
  * @Author: xujintai
  * @Date: 2021-04-08 16:44:39
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-08 17:07:08
+ * @LastEditTime: 2021-04-14 21:15:22
  * @Description: file content
- * @FilePath: \music-fontEnd\music-shop\src\components\navigation\Navigation.vue
+ * @FilePath: \music-shop\src\components\navigation\Navigation.vue
 -->
 <template>
   <div id="navigation">
@@ -17,7 +17,9 @@
       <el-menu-item index="3">
         <span @click="$router.push('/musician')">音乐人</span>
       </el-menu-item>
-      <el-menu-item index="4">注销</el-menu-item>
+      <el-menu-item index="4">
+        <span @click="$router.push('/login')">注销</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>

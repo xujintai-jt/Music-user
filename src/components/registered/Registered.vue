@@ -2,9 +2,9 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-11 16:35:32
+ * @LastEditTime: 2021-04-14 21:12:29
  * @Description: file content
- * @FilePath: \music-fontEnd\music-shop\src\components\registered\Registered.vue
+ * @FilePath: \music-shop\src\components\registered\Registered.vue
 -->
 <template>
   <div id="registered">
@@ -17,11 +17,14 @@
       label-width="100px"
       class="demo-ruleForm"
     >
+      <el-form-item label="用户名" prop="username">
+        <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
+      </el-form-item>
       <el-form-item label="手机号" prop="mobile">
         <el-input type="text" v-model="ruleForm.mobile" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="pass">
-        <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+      <el-form-item label="密码" prop="password">
+        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
         <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
@@ -47,6 +50,13 @@ import { postRegister } from "@/network/login-register.js";
 
 export default {
   data() {
+    const validateUsername = (rule, value, callback) => {
+      if (!value.trim()) {
+        return callback(new Error("用户名不能为空"));
+      }
+      callback();
+    };
+
     const checkAge = (rule, value, callback) => {
       if (!value) {
         return callback(new Error("年龄不能为空"));
@@ -78,7 +88,7 @@ export default {
     const validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.ruleForm.password) {
         callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
@@ -97,14 +107,16 @@ export default {
     };
     return {
       ruleForm: {
-        pass: "",
+        password: "",
         checkPass: "",
         age: "",
         mobile: "",
         sex: "1",
+        username: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
+        username: [{ validator: validateUsername, trigger: "blur" }],
+        password: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
         age: [{ validator: checkAge, trigger: "blur" }],
         mobile: [{ validator: validateMobile, trigger: "blur" }],
@@ -113,11 +125,12 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      console.log(11111111);
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           //请求头"Content-Type"设置为"application/x-www-form-urlencoded"
-          const req = await postRegister(this.ruleForm);
-          const { data, status } = req;
+          const res = await postRegister(this.ruleForm);
+          const { data, status } = res;
           if (status === 200) {
             return this.$message({
               message: data,

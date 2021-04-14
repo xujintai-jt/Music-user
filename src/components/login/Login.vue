@@ -2,9 +2,9 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-10 21:17:02
+ * @LastEditTime: 2021-04-14 21:02:40
  * @Description: file content
- * @FilePath: \music-fontEnd\music-shop\src\components\login\Login.vue
+ * @FilePath: \music-shop\src\components\login\Login.vue
 -->
 <template>
   <div id="registered">
@@ -20,8 +20,8 @@
       <el-form-item label="手机号" prop="mobile">
         <el-input type="text" v-model="ruleForm.mobile" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="pass">
-        <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+      <el-form-item label="密码" prop="password">
+        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
@@ -61,11 +61,11 @@ export default {
     };
     return {
       ruleForm: {
-        pass: "",
+        password: "",
         mobile: "",
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
+        password: [{ validator: validatePass, trigger: "blur" }],
         mobile: [{ validator: validateMobile, trigger: "blur" }],
       },
     };
@@ -76,8 +76,8 @@ export default {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           //请求头"Content-Type"设置为"application/x-www-form-urlencoded"
-          const req = await postLogin(this.ruleForm);
-          const { data, status } = req;
+          const res = await postLogin(this.ruleForm);
+          const { data, status } = res;
           if (status === 200) {
             const userInfo = JSON.stringify(this.ruleForm);
             window.localStorage.setItem("userInfo", userInfo);

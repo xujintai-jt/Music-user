@@ -4,7 +4,7 @@ import request from './request.js'
 export function postLogin(data) {
   return request({
     method:"post",
-    url: `/userLogin`,
+    url: `/api/user/login`,
     data
   })
 }
@@ -12,7 +12,7 @@ export function postLogin(data) {
 export function postRegister(data) {
   return request({
     method:"post",
-    url: `/userRegistered`,
+    url: `/api/user/register`,
     data
   })
 }

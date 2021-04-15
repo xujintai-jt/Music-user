@@ -2,9 +2,9 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-14 21:12:29
+ * @LastEditTime: 2021-04-15 16:29:10
  * @Description: file content
- * @FilePath: \music-shop\src\components\registered\Registered.vue
+ * @FilePath: \music-user\src\components\registered-login\Registered.vue
 -->
 <template>
   <div id="registered">
@@ -148,7 +148,6 @@ export default {
         }
       });
     },
-
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },

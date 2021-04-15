@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-08 16:44:39
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-15 14:46:18
+ * @LastEditTime: 2021-04-15 15:35:26
  * @Description: file content
  * @FilePath: \music-user\src\components\navigation\Navigation.vue
 -->
@@ -14,7 +14,7 @@
         <span @click="$router.push('/user-index/home')">首页</span>
       </el-menu-item>
       <el-menu-item index="1">
-        <span @click="$router.push('/user-index/play-count-music')">发现音乐</span>
+        <span @click="$router.push('/user-index/play-count-music')">热门音乐</span>
       </el-menu-item>
       <el-menu-item index="3">
         <span @click="$router.push('/user-index/blog')">发布评论</span>
@@ -22,15 +22,25 @@
       <el-menu-item index="3">
         <span @click="$router.push('/user-index/user-info')">个人信息</span>
       </el-menu-item>
+      <el-menu-item index="3">
+        <span @click="$router.push('/user-index/user-info')">个人收藏</span>
+      </el-menu-item>
       <el-menu-item index="4">
-        <span @click="$router.push('/login')">注销</span>
+        <span @click="logout()">注销</span>
       </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logout() {
+      window.localStorage.removeItem("userInfo");
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 
 <style>

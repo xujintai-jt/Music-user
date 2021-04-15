@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:42:59
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-15 15:01:28
+ * @LastEditTime: 2021-04-15 15:05:17
  * @Description: file content
  * @FilePath: \music-user\src\components\Blog\blog.vue
 -->
@@ -29,7 +29,6 @@
         <el-table-column align="center" prop="language" label="语种"></el-table-column>
         <el-table-column align="center" prop="style" label="风格"></el-table-column>
         <el-table-column align="center" prop="playcount" label="播放次数"></el-table-column>
-        <el-table-column align="center" prop="date" label="最近更新时间"></el-table-column>
         <el-table-column label="进入评论页面" align="center">
           <template slot-scope="scope">
             <el-button @click="musicComments(scope.row)">{{scope.row.songName}}</el-button>

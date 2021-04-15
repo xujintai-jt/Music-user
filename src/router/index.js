@@ -52,6 +52,10 @@ const routes = [
         path: 'blog',
         component: () => import('@/components/blog/Blog.vue')
       },
+      {
+        path: 'blog/:id',
+        component: () => import('@/components/blog/BlogDetail.vue')
+      },
     ]
   }
 ]

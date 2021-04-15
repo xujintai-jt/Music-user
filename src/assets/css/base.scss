@@ -8,3 +8,22 @@ audio {
   width: 520px;
   height: 60px;
 }
+
+//导航栏字体颜色
+.el-menu--horizontal>.el-menu-item:not(.is-disabled):hover {
+  color:red;
+}
+.el-menu--horizontal>.el-menu-item.is-active {
+color: rgb(255, 208, 75);
+}
+
+//分页
+.el-pagination{
+margin-top: 50px;
+}
+
+//搜索框
+.el-input{
+  width: 20vw;
+  margin: 30px;
+}

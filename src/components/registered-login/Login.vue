@@ -2,9 +2,9 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-14 21:02:40
+ * @LastEditTime: 2021-04-15 14:44:53
  * @Description: file content
- * @FilePath: \music-shop\src\components\login\Login.vue
+ * @FilePath: \music-user\src\components\registered-login\Login.vue
 -->
 <template>
   <div id="registered">
@@ -81,7 +81,7 @@ export default {
           if (status === 200) {
             const userInfo = JSON.stringify(this.ruleForm);
             window.localStorage.setItem("userInfo", userInfo);
-            this.$router.push("/user-index");
+            this.$router.push("/user-index/home");
             return this.$message({
               message: data,
               type: "success",

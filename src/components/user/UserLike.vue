@@ -1,28 +1,21 @@
 <!--
  * @Author: xujintai
- * @Date: 2021-04-15 14:05:53
+ * @Date: 2021-04-16 17:20:27
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 17:32:56
+ * @LastEditTime: 2021-04-16 19:49:14
  * @Description: file content
- * @FilePath: \music-user\src\components\music\RecommendMusic.vue
+ * @FilePath: \music-user\src\components\user\UserLike.vue
 -->
 <template>
-  <div class="adminlikes">
-    <h1>欢迎来到平台推荐音乐板块</h1>
-    <!-- 搜索音乐 -->
-    <el-input placeholder="搜索音乐" prefix-icon="el-icon-search" v-model="searchName" clearable></el-input>
-    <el-button type="primary" @click="searchSong()">搜索</el-button>
-    <el-button type="primary" @click="getAdminLikes()">查看全部歌曲</el-button>
-
+  <div id="user-like">
+    <h1>欢迎来到您的音乐收藏</h1>
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
-      <el-table :data="adminLikes" class="song-table" border>
-        <el-table-column type="index" label="序号" align="center"></el-table-column>
-        <!-- <el-table-column prop="_id" label="音乐 ID" align="center" width="240"></el-table-column> -->
+      <el-table :data="allTableData" class="song-table" border>
+        <el-table-column label="序号" type="index" align="center"></el-table-column>
         <el-table-column label="音乐名" prop="songName" align="center"></el-table-column>
-        <el-table-column prop="artist" label="歌手" align="center"></el-table-column>
-        <!-- <el-table-column prop="src" align="center" label="音乐文件"></el-table-column> -->
-        <el-table-column align="center" label="音乐封面">
+        <el-table-column label="歌手" prop="artist" align="center"></el-table-column>
+        <el-table-column label="音乐封面" align="center">
           <template slot-scope="scope">
             <img
               :src="'http://localhost:8633/api/music/poster?img=' + scope.row.poster"
@@ -32,16 +25,15 @@
         </el-table-column>
         <el-table-column align="center" prop="language" label="语种"></el-table-column>
         <el-table-column align="center" prop="style" label="风格"></el-table-column>
-        <!-- <el-table-column align="center" prop="playcount" label="播放次数"></el-table-column> -->
-        <el-table-column align="center" prop="date" label="最近更新时间"></el-table-column>
+        <el-table-column align="center" prop="playcount" label="播放次数"></el-table-column>
         <el-table-column label="播放" align="center">
           <template slot-scope="scope">
             <el-button @click="playMusic(scope.row)">{{scope.row.songName}}</el-button>
           </template>
         </el-table-column>
-        <el-table-column label="收藏" align="center">
+        <el-table-column label="取消收藏" align="center">
           <template slot-scope="scope">
-            <el-button icon="el-icon-star-off" @click="collectionMusic(scope.row)"></el-button>
+            <el-button icon="el-icon-star-off" @click="cancelCollection(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -81,20 +73,12 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
-  name: "adminlikes",
   data() {
     return {
-      audioIsShow: "",
-      activeMusicId: "",
-      activePosterSrc: "",
-      songName: "",
-      artist: "",
-      isCheckPassword: false,
-      inputPassword: "",
-      searchName: "",
-      adminLikes: [],
+      userlikes: [],
       allTableData: [],
       paginations: {
         // 分页属性
@@ -104,72 +88,64 @@ export default {
         page_sizes: [8, 15, 20, 25], //每页显示多少条
         layout: "total, sizes, prev, pager, next, jumper", // 翻页属性
       },
-      delRow: "",
       //当前播放的音乐id
       activeMusicId: "",
       activePosterSrc: "",
       //音乐播放器是否显示
       audioIsShow: false,
+      userid: "",
     };
   },
   created() {
-    this.getAdminLikes();
+    //获取用户信息
+    this.userid = JSON.parse(localStorage.getItem("userInfo"))._id;
+    this.getUserLike();
   },
   methods: {
-    //搜索音乐
-    searchSong() {
-      if (this.searchName.trim().length) {
-        console.log(this.searchName);
-        this.$axios
-          .post("http://localhost:8633/api/admin/adminlike/search", {
-            searchName: this.searchName,
-          })
-          .then((res) => {
-            this.adminLikes = res.data;
-            this.allTableData = res.data;
-            this.setPaginations();
-          });
-      } else {
-        this.$Message.warning("搜索内容不能为空");
-      }
-    },
-    //获取所有喜欢音乐
-    getAdminLikes() {
+    //获取用户收藏音乐
+    getUserLike() {
       this.$axios
-        .get("http://localhost:8633/api/admin/adminlike/all")
+        .get(`http://localhost:8633/api/music/userlike?userid=${this.userid}`)
         .then((res) => {
-          this.adminLikes = res.data;
-          this.allTableData = res.data;
+          this.allTableData = res.data.result;
+          //初始化页码的total数
           this.setPaginations();
-        });
+        })
+        .catch((err) => console.log(err));
     },
-    //添加音乐收藏
-    async collectionMusic(row) {
-      const { _id, mobile } = JSON.parse(localStorage.getItem("userInfo"));
+    //取消音乐收藏
+    cancelCollection(row) {
       const musicid = row._id;
-      const res = await this.$axios.post(
-        "http://localhost:8633/api/music/userlike",
-        {
-          userid: _id,
-          mobile,
-          musicid,
-          date: new Date(),
-        }
-      );
-      const { data, status } = res;
-      const { result } = data;
-      if (status === 200) {
-        //刷新表单数据,隐藏表单;刷新页面上的用户数据
-        return this.$message({
-          message: result,
-          type: "success",
-        });
-      }
-
-      this.$message({
-        message: result,
+      this.$confirm("您确定要取消该音乐收藏吗", "取消音乐收藏提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
         type: "warning",
-      });
+      })
+        .then(() => {
+          //发起取消音乐收藏请求
+          this.$axios
+            .post(`http://localhost:8633/api/music/userlike/del`, {
+              musicid,
+              userid: this.userid,
+            })
+            .then((res) => {
+              const { status, result } = res.data;
+              if (status !== 200) {
+                return this.$message({
+                  message: "收藏音乐移除失败！",
+                  type: "danger",
+                });
+              }
+              //音乐收藏移除成功，刷新音乐收藏页面
+              this.getUserLike();
+              this.$message({
+                message: result,
+                type: "success",
+              });
+            })
+            .catch((err) => console.log(err));
+        })
+        .catch(() => {});
     },
     //播放音乐
     playMusic(row) {
@@ -180,7 +156,7 @@ export default {
       this.songName = row.songName;
       this.artist = row.artist;
       //刷新页面获取最新播放次数信息
-      this.getAdminLikes();
+      this.getUserLike();
     },
     // 设置当前页
     handleCurrentChange(page) {
@@ -190,10 +166,10 @@ export default {
         return index >= sortnum;
       });
       // 设置默认分页数据
-      this.adminLikes = table.filter((item, index) => {
+      this.userLikes = table.filter((item, index) => {
         return index < this.paginations.page_size;
       });
-      this.adminLikes = table.filter((item, index) => {
+      this.userLikes = table.filter((item, index) => {
         return index < this.paginations.page_size;
       });
     },
@@ -202,7 +178,7 @@ export default {
       // 切换size
       this.paginations.page_index = 1;
       this.paginations.page_size = page_size;
-      this.adminLikes = this.allTableData.filter((item, index) => {
+      this.userLikes = this.allTableData.filter((item, index) => {
         return index < page_size;
       });
     },
@@ -213,7 +189,7 @@ export default {
       this.paginations.page_index = 1;
       this.paginations.page_size = 8;
       // 设置默认分页数据
-      this.adminLikes = this.allTableData.filter((item, index) => {
+      this.userLikes = this.allTableData.filter((item, index) => {
         return index < this.paginations.page_size;
       });
     },
@@ -228,11 +204,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.adminlikes {
-  width: 100%;
-  height: 100%;
-}
+
+<style scoped lang="scss">
 .music-audio {
   display: flex;
   width: 60vw;

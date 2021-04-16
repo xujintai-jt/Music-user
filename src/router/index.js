@@ -45,16 +45,20 @@ const routes = [
         component: () => import('@/components/home/Home.vue')
       },
       {
-        path: 'user-info',
-        component: () => import('@/components/user/UserInfo.vue')
-      },
-      {
         path: 'blog',
         component: () => import('@/components/blog/Blog.vue')
       },
       {
         path: 'blog/:id/:songName/:artist/:poster/:playcount',
         component: () => import('@/components/blog/BlogDetail.vue')
+      },
+      {
+        path: 'user-info',
+        component: () => import('@/components/user/UserInfo.vue')
+      },
+      {
+        path: 'user-like',
+        component: () => import('@/components/user/UserLike.vue')
       },
     ]
   }

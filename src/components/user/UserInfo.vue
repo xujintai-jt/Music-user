@@ -2,12 +2,13 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:42:32
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-15 16:56:17
+ * @LastEditTime: 2021-04-16 17:21:36
  * @Description: file content
  * @FilePath: \music-user\src\components\user\UserInfo.vue
 -->
 <template>
   <div id="user-info">
+    <h1>欢迎来到您的个人信息页面</h1>
     <!-- 用户信息 -->
     <div class="userInfo">
       <div>

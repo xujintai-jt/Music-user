@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-15 16:29:10
+ * @LastEditTime: 2021-04-16 16:38:01
  * @Description: file content
  * @FilePath: \music-user\src\components\registered-login\Registered.vue
 -->
@@ -125,7 +125,6 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      console.log(11111111);
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           //请求头"Content-Type"设置为"application/x-www-form-urlencoded"

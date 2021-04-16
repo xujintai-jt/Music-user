@@ -2,12 +2,13 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:42:59
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 13:14:48
+ * @LastEditTime: 2021-04-16 17:18:20
  * @Description: file content
  * @FilePath: \music-user\src\components\Blog\blog.vue
 -->
 <template>
   <div id="blog">
+    <h1>欢迎来到音乐评论区首页</h1>
     <!-- 搜索音乐 -->
     <el-input placeholder="搜索音乐" prefix-icon="el-icon-search" v-model="searchName" clearable></el-input>
     <el-button type="primary" @click="searchSong()">搜索</el-button>
@@ -120,6 +121,34 @@ export default {
       } else {
         this.$message.warning("搜索内容不能为空..");
       }
+    },
+    //添加音乐收藏
+    async collectionMusic(row) {
+      const { _id, mobile } = JSON.parse(localStorage.getItem("userInfo"));
+      const musicid = row._id;
+      const res = await this.$axios.post(
+        "http://localhost:8633/api/music/userlike",
+        {
+          userid: _id,
+          mobile,
+          musicid,
+          date: new Date(),
+        }
+      );
+      const { data, status } = res;
+      const { result } = data;
+      if (status === 200) {
+        //刷新表单数据,隐藏表单;刷新页面上的用户数据
+        return this.$message({
+          message: result,
+          type: "success",
+        });
+      }
+
+      this.$message({
+        message: result,
+        type: "warning",
+      });
     },
     // 设置当前页
     handleCurrentChange(page) {

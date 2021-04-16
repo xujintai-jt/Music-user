@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-08 16:44:39
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 14:59:46
+ * @LastEditTime: 2021-04-16 19:43:17
  * @Description: file content
  * @FilePath: \music-user\src\components\navigation\Navigation.vue
 -->
@@ -17,13 +17,13 @@
         <span @click="$router.push('/user-index/play-count-music')">热门音乐</span>
       </el-menu-item>
       <el-menu-item index="3">
-        <span @click="$router.push('/user-index/blog')">音乐评论区</span>
+        <span @click="$router.push('/user-index/blog')">音乐评论区首页</span>
       </el-menu-item>
       <el-menu-item index="3">
         <span @click="$router.push('/user-index/user-info')">个人信息</span>
       </el-menu-item>
       <el-menu-item index="3">
-        <span @click="$router.push('/user-index/user-info')">个人收藏</span>
+        <span @click="$router.push('/user-index/user-like')">个人音乐收藏</span>
       </el-menu-item>
       <el-menu-item index="4">
         <span @click="logout()">注销</span>

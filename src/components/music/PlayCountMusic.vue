@@ -2,13 +2,14 @@
  * @Author: xujintai
  * @Date: 2021-04-08 17:07:55
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-15 14:38:44
+ * @LastEditTime: 2021-04-16 17:19:22
  * @Description: file content
  * @FilePath: \music-user\src\components\music\PlayCountMusic.vue
 -->
 <template>
   <div id="music">
     <!-- 搜索音乐 -->
+    <h1>欢迎来到热门音乐板块</h1>
     <el-input placeholder="搜索音乐" prefix-icon="el-icon-search" v-model="searchName" clearable></el-input>
     <el-button type="primary" @click="searchSong()">搜索</el-button>
     <el-button type="primary" @click="getAllSong()">查看全部歌曲</el-button>
@@ -175,8 +176,33 @@ export default {
       this.getAllSong();
     },
     //收藏音乐
-    collectionMusic(row) {
-      console.log(row);
+    //添加音乐收藏
+    async collectionMusic(row) {
+      const { _id, mobile } = JSON.parse(localStorage.getItem("userInfo"));
+      const musicid = row._id;
+      const res = await this.$axios.post(
+        "http://localhost:8633/api/music/userlike",
+        {
+          userid: _id,
+          mobile,
+          musicid,
+          date: new Date(),
+        }
+      );
+      const { data, status } = res;
+      const { result } = data;
+      if (status === 200) {
+        //刷新表单数据,隐藏表单;刷新页面上的用户数据
+        return this.$message({
+          message: result,
+          type: "success",
+        });
+      }
+
+      this.$message({
+        message: result,
+        type: "warning",
+      });
     },
     //搜索音乐
     searchSong() {

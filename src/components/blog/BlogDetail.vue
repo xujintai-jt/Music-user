@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 21:37:23
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 14:52:26
+ * @LastEditTime: 2021-04-16 18:06:50
  * @Description: file content
  * @FilePath: \music-user\src\components\blog\BlogDetail.vue
 -->
@@ -35,7 +35,10 @@
           <el-button type="primary" @click="publishRemarks()">评论</el-button>
         </footer>
       </div>
-      <h2>评论信息区</h2>
+      <h2>
+        评论信息区
+        <span>评论信息条数：{{remarksArray.length}}</span>
+      </h2>
       <div class="remarkInfo" v-if="remarksArray.length>0">
         <div class="remarkInfoItem" v-for="item in remarksArray" :key="item._id">
           <header>

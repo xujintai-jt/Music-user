@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:42:59
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-15 15:05:17
+ * @LastEditTime: 2021-04-16 10:59:55
  * @Description: file content
  * @FilePath: \music-user\src\components\Blog\blog.vue
 -->
@@ -15,10 +15,10 @@
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
       <el-table :data="allSongs" class="song-table" border>
-        <el-table-column type="index" label="序号" align="center"></el-table-column>
+        <el-table-column label="序号" type="index" align="center"></el-table-column>
         <el-table-column label="音乐名" prop="songName" align="center"></el-table-column>
-        <el-table-column prop="artist" label="歌手" align="center"></el-table-column>
-        <el-table-column align="center" label="音乐封面">
+        <el-table-column label="歌手" prop="artist" align="center"></el-table-column>
+        <el-table-column label="音乐封面" align="center">
           <template slot-scope="scope">
             <img
               :src="'http://localhost:8633/api/music/poster?img=' + scope.row.poster"
@@ -154,6 +154,20 @@ export default {
       // 设置默认分页数据
       this.allSongs = this.allTableData.filter((item, index) => {
         return index < this.paginations.page_size;
+      });
+    },
+    //进入音乐评论页面
+    musicComments(row) {
+      const musicId = row._id;
+      const songName = row.songName;
+      const artist = row.artist;
+      const poster = row.poster;
+      const playcount = row.playcount;
+      this.$router.push({
+        path: `blog/id=${musicId}/songName=${songName}/artist=${artist}/poster=${poster}/playcount=${playcount}`,
+        params: {
+          musicId,
+        },
       });
     },
   },

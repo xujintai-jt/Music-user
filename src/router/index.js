@@ -53,7 +53,7 @@ const routes = [
         component: () => import('@/components/blog/Blog.vue')
       },
       {
-        path: 'blog/:id',
+        path: 'blog/:id/:songName/:artist/:poster/:playcount',
         component: () => import('@/components/blog/BlogDetail.vue')
       },
     ]

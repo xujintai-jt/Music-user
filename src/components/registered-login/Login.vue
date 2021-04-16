@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-15 14:44:53
+ * @LastEditTime: 2021-04-16 10:33:51
  * @Description: file content
  * @FilePath: \music-user\src\components\registered-login\Login.vue
 -->
@@ -78,18 +78,18 @@ export default {
           //请求头"Content-Type"设置为"application/x-www-form-urlencoded"
           const res = await postLogin(this.ruleForm);
           const { data, status } = res;
+          const { result } = data;
           if (status === 200) {
             const userInfo = JSON.stringify(this.ruleForm);
             window.localStorage.setItem("userInfo", userInfo);
             this.$router.push("/user-index/home");
             return this.$message({
-              message: data,
+              message: result,
               type: "success",
             });
           }
-
           this.$message({
-            message: data,
+            message: result,
             type: "error",
           });
         } else {

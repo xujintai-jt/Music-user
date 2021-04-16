@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-03-31 15:44:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 10:33:51
+ * @LastEditTime: 2021-04-16 14:02:10
  * @Description: file content
  * @FilePath: \music-user\src\components\registered-login\Login.vue
 -->
@@ -80,9 +80,8 @@ export default {
           const { data, status } = res;
           const { result } = data;
           if (status === 200) {
-            const userInfo = JSON.stringify(this.ruleForm);
-            window.localStorage.setItem("userInfo", userInfo);
-            this.$router.push("/user-index/home");
+            // 登录成功获取手机号，通过手机号获取完整用户信息
+            this.getUserInfo(this.ruleForm.mobile);
             return this.$message({
               message: result,
               type: "success",
@@ -100,6 +99,20 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    //获取用户完整信息
+    getUserInfo(mobile) {
+      console.log(mobile);
+      this.$axios
+        .get(`http://localhost:8633/api/user/query?mobile=${mobile}`)
+        .then((res) => {
+          //将用户完整信息保存在本地
+          const data = JSON.stringify(res.data);
+          window.localStorage.setItem("userInfo", data);
+          //登录成功跳转路由
+          this.$router.push("/user-index/home");
+        })
+        .catch((err) => console.log(err));
     },
   },
 };

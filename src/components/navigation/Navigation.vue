@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-08 16:44:39
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-15 15:35:26
+ * @LastEditTime: 2021-04-16 14:59:46
  * @Description: file content
  * @FilePath: \music-user\src\components\navigation\Navigation.vue
 -->
@@ -17,7 +17,7 @@
         <span @click="$router.push('/user-index/play-count-music')">热门音乐</span>
       </el-menu-item>
       <el-menu-item index="3">
-        <span @click="$router.push('/user-index/blog')">发布评论</span>
+        <span @click="$router.push('/user-index/blog')">音乐评论区</span>
       </el-menu-item>
       <el-menu-item index="3">
         <span @click="$router.push('/user-index/user-info')">个人信息</span>
@@ -36,8 +36,16 @@
 export default {
   methods: {
     logout() {
-      window.localStorage.removeItem("userInfo");
-      this.$router.push("/login");
+      this.$confirm("您确定要退出登录吗", "退出提示", {
+        confirmButtonText: "退出",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          window.localStorage.removeItem("userInfo");
+          this.$router.push("/login");
+        })
+        .catch(() => {});
     },
   },
 };

@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:42:59
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 10:59:55
+ * @LastEditTime: 2021-04-16 13:14:48
  * @Description: file content
  * @FilePath: \music-user\src\components\Blog\blog.vue
 -->
@@ -164,7 +164,7 @@ export default {
       const poster = row.poster;
       const playcount = row.playcount;
       this.$router.push({
-        path: `blog/id=${musicId}/songName=${songName}/artist=${artist}/poster=${poster}/playcount=${playcount}`,
+        path: `blog/${musicId}/${songName}/${artist}/${poster}/${playcount}`,
         params: {
           musicId,
         },

@@ -62,7 +62,13 @@ const routes = [
       },
       {
         path: 'guess-userlike',
+        name: 'guess-userlike',
         component: () => import('@/components/user/GuessUserLike.vue')
+      },
+      {
+        path: 'user-recommend/:style',
+        name: 'user-recommend',
+        component: () => import('@/components/user/UserRecommend.vue')
       },
     ]
   }

@@ -2,12 +2,12 @@
  * @Author: xujintai
  * @Date: 2021-04-08 17:07:55
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 11:25:47
+ * @LastEditTime: 2021-04-17 14:56:45
  * @Description: file content
  * @FilePath: \music-user\src\components\music\PlayCountMusic.vue
 -->
 <template>
-  <div id="music">
+  <div id="play-count-music">
     <!-- 搜索音乐 -->
     <h1>欢迎来到热门音乐板块</h1>
     <el-input placeholder="搜索音乐" prefix-icon="el-icon-search" v-model="searchName" clearable></el-input>
@@ -236,22 +236,26 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.music-audio {
-  display: flex;
-  width: 60vw;
-  margin: 0;
-  margin: auto;
-  margin-top: 100px;
-  justify-content: space-around;
-  color: #c20c0c;
-  .music-audio-right {
-    width: 20vw;
+#play-count-music {
+  height: 100vh;
+  background-color: #fef0f0;
+  .music-audio {
     display: flex;
+    width: 60vw;
+    margin: 0;
+    margin: auto;
+    margin-top: 100px;
     justify-content: space-around;
-    align-items: center;
-    .audioPoster {
-      width: 35px;
-      height: 35px;
+    color: #c20c0c;
+    .music-audio-right {
+      width: 20vw;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .audioPoster {
+        width: 35px;
+        height: 35px;
+      }
     }
   }
 }

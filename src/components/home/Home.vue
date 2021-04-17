@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 13:39:06
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 17:17:53
+ * @LastEditTime: 2021-04-17 15:00:04
  * @Description: file content
  * @FilePath: \music-user\src\components\home\Home.vue
 -->
@@ -25,5 +25,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+#home {
+  background-color: #f0f9eb;
+}
 </style>

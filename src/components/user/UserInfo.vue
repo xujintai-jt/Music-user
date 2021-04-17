@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:42:32
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 10:31:44
+ * @LastEditTime: 2021-04-17 15:08:20
  * @Description: file content
  * @FilePath: \music-user\src\components\user\UserInfo.vue
 -->
@@ -242,19 +242,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.userInfo {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 10vh;
-  background-color: #c20c0c;
-  color: white;
-  span {
-    margin-right: 10px;
+#user-info {
+  height: 100vh;
+  background-color: #e9fafd;
+  .userInfo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 10vh;
+    background-color: #f9fbf8;
+    span {
+      margin-right: 10px;
+    }
   }
 }
-
-// html {
-//   background-color: pink;
-// }
 </style>

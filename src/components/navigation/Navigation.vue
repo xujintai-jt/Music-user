@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-08 16:44:39
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 10:36:18
+ * @LastEditTime: 2021-04-17 13:01:22
  * @Description: file content
  * @FilePath: \music-user\src\components\navigation\Navigation.vue
 -->
@@ -45,6 +45,8 @@ export default {
         type: "warning",
       })
         .then(() => {
+          const { mobile } = JSON.parse(localStorage.getItem("userInfo"));
+          window.localStorage.removeItem(`${mobile}playRecord`);
           window.localStorage.removeItem("userInfo");
           this.$router.push("/login");
         })

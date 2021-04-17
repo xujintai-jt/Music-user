@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:42:59
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 17:18:20
+ * @LastEditTime: 2021-04-17 14:58:16
  * @Description: file content
  * @FilePath: \music-user\src\components\Blog\blog.vue
 -->
@@ -203,5 +203,9 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+#blog {
+  height: 100vh;
+  background-color: #fdf6ec;
+}
 </style>

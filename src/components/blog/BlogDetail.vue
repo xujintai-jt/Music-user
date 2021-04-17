@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 21:37:23
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 18:06:50
+ * @LastEditTime: 2021-04-17 14:52:02
  * @Description: file content
  * @FilePath: \music-user\src\components\blog\BlogDetail.vue
 -->
@@ -136,6 +136,7 @@ export default {
 
 <style scoped lang="scss">
 #blog-detail {
+  background-color: #fdf6ec;
   .musicInfo {
     width: 65vw;
     margin: 0;

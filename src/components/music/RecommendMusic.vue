@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:05:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 17:32:56
+ * @LastEditTime: 2021-04-17 11:39:59
  * @Description: file content
  * @FilePath: \music-user\src\components\music\RecommendMusic.vue
 -->
@@ -179,6 +179,8 @@ export default {
       this.activePosterSrc = row.poster;
       this.songName = row.songName;
       this.artist = row.artist;
+      //将播放音乐信息保存进入vuex
+      this.$store.commit("addPlayRecord", row);
       //刷新页面获取最新播放次数信息
       this.getAdminLikes();
     },

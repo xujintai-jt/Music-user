@@ -60,6 +60,10 @@ const routes = [
         path: 'user-like',
         component: () => import('@/components/user/UserLike.vue')
       },
+      {
+        path: 'guess-userlike',
+        component: () => import('@/components/user/GuessUserLike.vue')
+      },
     ]
   }
 ]

@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-08 16:44:39
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 19:43:17
+ * @LastEditTime: 2021-04-17 10:36:18
  * @Description: file content
  * @FilePath: \music-user\src\components\navigation\Navigation.vue
 -->
@@ -24,6 +24,9 @@
       </el-menu-item>
       <el-menu-item index="3">
         <span @click="$router.push('/user-index/user-like')">个人音乐收藏</span>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <span @click="$router.push('/user-index/guess-userlike')">猜您喜欢</span>
       </el-menu-item>
       <el-menu-item index="4">
         <span @click="logout()">注销</span>

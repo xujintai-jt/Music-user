@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-08 17:07:55
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 17:19:22
+ * @LastEditTime: 2021-04-17 11:25:47
  * @Description: file content
  * @FilePath: \music-user\src\components\music\PlayCountMusic.vue
 -->
@@ -172,6 +172,8 @@ export default {
       this.activePosterSrc = row.poster;
       this.songName = row.songName;
       this.artist = row.artist;
+      //将播放音乐信息保存进入vuex
+      this.$store.commit("addPlayRecord", row);
       //刷新页面获取最新播放次数信息
       this.getAllSong();
     },

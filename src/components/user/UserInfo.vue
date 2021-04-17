@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:42:32
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-16 17:21:36
+ * @LastEditTime: 2021-04-17 10:31:44
  * @Description: file content
  * @FilePath: \music-user\src\components\user\UserInfo.vue
 -->
@@ -76,6 +76,13 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+    <!-- 选择主题色彩 -->
+    <!-- <el-radio-group v-model="themeColor" @change="currentTheme">
+      <el-radio-button label="浪漫"></el-radio-button>
+      <el-radio-button label="奢华"></el-radio-button>
+      <el-radio-button label="清新"></el-radio-button>
+      <el-radio-button label="淡雅"></el-radio-button>
+    </el-radio-group>-->
   </div>
 </template>
 
@@ -156,6 +163,7 @@ export default {
         title: "编辑用户信息",
         show: false,
       },
+      themeColor: "浪漫",
       rules: {
         username: [
           { validator: validateUsername, trigger: "blur", required: true },
@@ -179,12 +187,13 @@ export default {
     this.getUserInfo(mobile);
   },
   methods: {
+    //获取用户信息
     getUserInfo(mobile) {
       this.$axios
         .get(`http://localhost:8633/api/user/query?mobile=${mobile}`)
         .then((res) => {
           this.userForm = res.data;
-          console.log(this.userForm);
+          // console.log(this.userForm);
         })
         .catch((err) => console.log(err));
     },
@@ -223,11 +232,16 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
+    currentTheme() {
+      //可以本地化存储themeColor
+      console.log(this.themeColor);
+      console.log(this.$root);
+    },
   },
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .userInfo {
   display: flex;
   justify-content: space-around;
@@ -239,4 +253,8 @@ export default {
     margin-right: 10px;
   }
 }
+
+// html {
+//   background-color: pink;
+// }
 </style>

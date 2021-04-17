@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-08 17:07:55
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 14:56:45
+ * @LastEditTime: 2021-04-17 19:49:10
  * @Description: file content
  * @FilePath: \music-user\src\components\music\PlayCountMusic.vue
 -->
@@ -13,6 +13,19 @@
     <el-input placeholder="搜索音乐" prefix-icon="el-icon-search" v-model="searchName" clearable></el-input>
     <el-button type="primary" @click="searchSong()">搜索</el-button>
     <el-button type="primary" @click="getAllSong()">查看全部歌曲</el-button>
+    <!-- 选择音乐风格 -->
+    <div style="margin-bottom:20px">
+      <h3>根据类别筛选音乐</h3>
+      <el-radio-group v-model="musicStyle" @change="currentStyle">
+        <el-radio-button label="传统"></el-radio-button>
+        <el-radio-button label="儿歌"></el-radio-button>
+        <el-radio-button label="民谣"></el-radio-button>
+        <el-radio-button label="摇滚"></el-radio-button>
+        <el-radio-button label="古风"></el-radio-button>
+        <el-radio-button label="流行"></el-radio-button>
+      </el-radio-group>
+    </div>
+
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
       <el-table :data="allSongs" class="song-table" style="width: 100%" border>
@@ -107,6 +120,7 @@ export default {
       activePosterSrc: "",
       //音乐播放器是否显示
       audioIsShow: false,
+      musicStyle: "",
     };
   },
   created() {
@@ -222,6 +236,23 @@ export default {
       } else {
         this.$message.warning("搜索内容不能为空..");
       }
+    },
+    //监听音乐风格改变
+    currentStyle(style) {
+      console.log(style);
+      this.getStyleMusic(style);
+    },
+    //获取类型音乐
+    getStyleMusic(style) {
+      this.$axios
+        .post("http://localhost:8633/api/music/style", {
+          style,
+        })
+        .then((res) => {
+          console.log(res);
+          this.allTableData = res.data;
+          this.setPaginations();
+        });
     },
   },
   computed: {

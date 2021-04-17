@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 21:37:23
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 14:52:02
+ * @LastEditTime: 2021-04-17 15:46:40
  * @Description: file content
  * @FilePath: \music-user\src\components\blog\BlogDetail.vue
 -->
@@ -44,7 +44,7 @@
           <header>
             <span>用户名：{{item.username}}</span>
             <span style="margin-left:55px">评论信息:{{item.remarks}}</span>
-            <el-button type="danger" style="margin-left:25px">删除</el-button>
+            <!-- <el-button type="danger" style="margin-left:25px">删除</el-button> -->
           </header>
           <footer>
             <span>评论时间:{{item.date}}</span>
@@ -141,7 +141,7 @@ export default {
     width: 65vw;
     margin: 0;
     margin: auto;
-    background-color: rgb(228, 225, 225);
+    background-color: rgb(255, 252, 252);
     header {
       h2 {
         padding: 20px;
@@ -159,7 +159,7 @@ export default {
     width: 65vw;
     margin: 0;
     margin: auto;
-    background-color: rgb(228, 225, 225);
+    background-color: rgb(255, 252, 252);
 
     .addremark {
       width: 50vw;

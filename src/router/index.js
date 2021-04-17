@@ -38,14 +38,17 @@ const routes = [
     children: [
       {
         path: 'play-count-music',
+        name: 'play-count-music',
         component: () => import('@/components/music/PlayCountMusic.vue')
       },
       {
         path: 'home',
+        name: 'home',
         component: () => import('@/components/home/Home.vue')
       },
       {
         path: 'blog',
+        name: 'blog',
         component: () => import('@/components/blog/Blog.vue')
       },
       {
@@ -54,10 +57,12 @@ const routes = [
       },
       {
         path: 'user-info',
+        name: 'user-info',
         component: () => import('@/components/user/UserInfo.vue')
       },
       {
         path: 'user-like',
+        name: 'user-like',
         component: () => import('@/components/user/UserLike.vue')
       },
       {
@@ -69,6 +74,11 @@ const routes = [
         path: 'user-recommend/:style',
         name: 'user-recommend',
         component: () => import('@/components/user/UserRecommend.vue')
+      },
+      {
+        path: 'music-edu',
+        name: 'music-edu',
+        component: () => import('@/components/education/MusicEdu.vue')
       },
     ]
   }

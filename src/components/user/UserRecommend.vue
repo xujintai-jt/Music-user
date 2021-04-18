@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-17 14:03:04
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 15:14:23
+ * @LastEditTime: 2021-04-18 19:21:03
  * @Description: file content
  * @FilePath: \music-user\src\components\user\UserRecommend.vue
 -->
@@ -11,7 +11,7 @@
     <h1>根据您的喜好，向您推荐{{style}}类音乐</h1>
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
-      <el-table :data="allTableData" class="song-table" border>
+      <el-table :data="allTableData" class="song-table" border style="width: 99%">
         <el-table-column type="index" label="序号" align="center"></el-table-column>
         <!-- <el-table-column prop="_id" label="音乐 ID" align="center" width="240"></el-table-column> -->
         <el-table-column label="音乐名" prop="songName" align="center"></el-table-column>
@@ -232,6 +232,11 @@ export default {
         height: 35px;
       }
     }
+  }
+  .el-table {
+    margin: 0;
+    margin: auto;
+    margin-top: 20px;
   }
 }
 </style>

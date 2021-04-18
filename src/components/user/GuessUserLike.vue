@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-17 10:34:23
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 15:16:36
+ * @LastEditTime: 2021-04-18 19:20:30
  * @Description: file content
  * @FilePath: \music-user\src\components\user\GuessUserLike.vue
 -->
@@ -12,7 +12,7 @@
       <h1>欢迎您来到猜您喜欢板块</h1>
       <!-- 歌曲数据表 -->
       <div style="width:100%;background-color:#f40;">
-        <el-table :data="allTableData" class="song-table" style="width: 100%" border>
+        <el-table :data="allTableData" class="song-table" style="width: 99%" border>
           <el-table-column type="index" label="序号" align="center"></el-table-column>
           <el-table-column label="音乐名" prop="songName" align="center"></el-table-column>
           <el-table-column prop="artist" label="歌手" align="center"></el-table-column>
@@ -203,6 +203,11 @@ export default {
 #guess-userlike {
   height: 100vh;
   background-color: rgb(246, 240, 224);
+  .el-table {
+    margin: 0;
+    margin: auto;
+    margin-top: 20px;
+  }
 }
 </style>>
 </style>

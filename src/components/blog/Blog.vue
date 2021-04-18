@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:42:59
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 19:56:18
+ * @LastEditTime: 2021-04-18 19:18:49
  * @Description: file content
  * @FilePath: \music-user\src\components\Blog\blog.vue
 -->
@@ -27,7 +27,7 @@
     </div>
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
-      <el-table :data="allSongs" class="song-table" border>
+      <el-table :data="allSongs" class="song-table" border style="width: 99%">
         <el-table-column label="序号" type="index" align="center"></el-table-column>
         <el-table-column label="音乐名" prop="songName" align="center"></el-table-column>
         <el-table-column label="歌手" prop="artist" align="center"></el-table-column>
@@ -237,5 +237,10 @@ export default {
 #blog {
   height: 100vh;
   background-color: #fdf6ec;
+  .el-table {
+    margin: 0;
+    margin: auto;
+    margin-top: 20px;
+  }
 }
 </style>

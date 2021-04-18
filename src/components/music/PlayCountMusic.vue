@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-08 17:07:55
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 19:49:10
+ * @LastEditTime: 2021-04-18 19:18:28
  * @Description: file content
  * @FilePath: \music-user\src\components\music\PlayCountMusic.vue
 -->
@@ -28,7 +28,7 @@
 
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
-      <el-table :data="allSongs" class="song-table" style="width: 100%" border>
+      <el-table :data="allSongs" class="song-table" style="width: 99%" border>
         <el-table-column type="index" label="序号" align="center"></el-table-column>
         <el-table-column label="音乐名" prop="songName" align="center"></el-table-column>
         <el-table-column prop="artist" label="歌手" align="center"></el-table-column>
@@ -288,6 +288,11 @@ export default {
         height: 35px;
       }
     }
+  }
+  .el-table {
+    margin: 0;
+    margin: auto;
+    margin-top: 20px;
   }
 }
 </style>

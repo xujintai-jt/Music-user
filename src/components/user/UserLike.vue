@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-16 17:20:27
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 14:55:50
+ * @LastEditTime: 2021-04-18 19:19:50
  * @Description: file content
  * @FilePath: \music-user\src\components\user\UserLike.vue
 -->
@@ -11,7 +11,7 @@
     <h1>欢迎来到您的音乐收藏</h1>
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
-      <el-table :data="allTableData" class="song-table" border>
+      <el-table :data="allTableData" class="song-table" border style="width:99%;">
         <el-table-column label="序号" type="index" align="center"></el-table-column>
         <el-table-column label="音乐名" prop="songName" align="center"></el-table-column>
         <el-table-column label="歌手" prop="artist" align="center"></el-table-column>
@@ -230,6 +230,11 @@ export default {
         height: 35px;
       }
     }
+  }
+  .el-table {
+    margin: 0;
+    margin: auto;
+    margin-top: 20px;
   }
 }
 </style>

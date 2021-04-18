@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-15 14:05:53
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-17 19:53:19
+ * @LastEditTime: 2021-04-18 19:17:37
  * @Description: file content
  * @FilePath: \music-user\src\components\music\RecommendMusic.vue
 -->
@@ -16,7 +16,7 @@
 
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
-      <el-table :data="adminLikes" class="song-table" border>
+      <el-table :data="adminLikes" class="song-table" border style="width:99%">
         <el-table-column type="index" label="序号" align="center"></el-table-column>
         <!-- <el-table-column prop="_id" label="音乐 ID" align="center" width="240"></el-table-column> -->
         <el-table-column label="音乐名" prop="songName" align="center"></el-table-column>
@@ -234,6 +234,11 @@ export default {
 .adminlikes {
   width: 100%;
   height: 100%;
+  .el-table {
+    margin: 0;
+    margin: auto;
+    margin-top: 20px;
+  }
 }
 .music-audio {
   display: flex;

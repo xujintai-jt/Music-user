@@ -76,6 +76,11 @@ const routes = [
         component: () => import('@/components/user/UserRecommend.vue')
       },
       {
+        path: 'user-collet-recom/:style',
+        name: 'user-collet-recom',
+        component: () => import('@/components/user/UserColletRecom.vue')
+      },
+      {
         path: 'music-edu',
         name: 'music-edu',
         component: () => import('@/components/education/MusicEdu.vue')

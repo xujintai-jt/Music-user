@@ -1,21 +1,23 @@
 <!--
  * @Author: xujintai
- * @Date: 2021-04-16 17:20:27
+ * @Date: 2021-04-17 14:03:04
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-19 22:04:22
+ * @LastEditTime: 2021-04-19 22:05:58
  * @Description: file content
- * @FilePath: \music-user\src\components\user\UserLike.vue
+ * @FilePath: \music-user\src\components\user\UserColletRecom.vue
 -->
 <template>
-  <div id="user-like">
-    <h1>欢迎来到您的音乐收藏</h1>
+  <div id="user-recommend">
+    <h1>根据您的音乐收藏，向您推荐{{style}}类音乐</h1>
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
-      <el-table :data="allTableData" class="song-table" border style="width:99%;">
-        <el-table-column label="序号" type="index" align="center"></el-table-column>
+      <el-table :data="allTableData" class="song-table" border style="width: 99%">
+        <el-table-column type="index" label="序号" align="center"></el-table-column>
+        <!-- <el-table-column prop="_id" label="音乐 ID" align="center" width="240"></el-table-column> -->
         <el-table-column label="音乐名" prop="songName" align="center"></el-table-column>
-        <el-table-column label="歌手" prop="artist" align="center"></el-table-column>
-        <el-table-column label="音乐封面" align="center">
+        <el-table-column prop="artist" label="歌手" align="center"></el-table-column>
+        <!-- <el-table-column prop="src" align="center" label="音乐文件"></el-table-column> -->
+        <el-table-column align="center" label="音乐封面">
           <template slot-scope="scope">
             <img
               :src="'http://localhost:8633/api/music/poster?img=' + scope.row.poster"
@@ -26,15 +28,15 @@
         <el-table-column align="center" prop="language" label="语种"></el-table-column>
         <el-table-column align="center" prop="style" label="风格"></el-table-column>
         <!-- <el-table-column align="center" prop="playcount" label="播放次数"></el-table-column> -->
-        <el-table-column align="center" prop="date" label="收藏时间"></el-table-column>
+        <el-table-column align="center" prop="date" label="最近更新时间"></el-table-column>
         <el-table-column label="播放" align="center">
           <template slot-scope="scope">
             <el-button @click="playMusic(scope.row)">{{scope.row.songName}}</el-button>
           </template>
         </el-table-column>
-        <el-table-column label="取消收藏" align="center">
+        <el-table-column label="收藏" align="center">
           <template slot-scope="scope">
-            <el-button icon="el-icon-star-off" @click="cancelCollection(scope.row)"></el-button>
+            <el-button icon="el-icon-star-off" @click="collectionMusic(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -52,6 +54,8 @@
       @size-change="handleSizeChange"
     ></el-pagination>
 
+    <!-- 返回猜你喜欢主页 -->
+    <el-button class="el-button el-button--warning is-plain" @click="toUserlike()">返回个人收藏主页</el-button>
     <!-- 播放器 -->
     <div class="music-audio" v-if="audioIsShow">
       <div class="music-audio-right">
@@ -72,12 +76,6 @@
         :src="activeMusicSrc"
       ></audio>
     </div>
-
-    <!-- 推荐音乐类别 -->
-    <footer v-if="allTableData.length>0">
-      <h2>根据您的收藏音乐，我们猜测您可能喜欢{{maxCollectionsStyle}}类的歌曲，因此我们向您推荐这些歌曲</h2>
-      <el-button class="el-button el-button--success is-plain" @click="userCollectRecommend">推荐入口</el-button>
-    </footer>
   </div>
 </template>
 
@@ -85,9 +83,9 @@
 export default {
   data() {
     return {
-      userlikes: [],
+      //音乐风格
+      style: "",
       allTableData: [],
-      collectionRecommend: "",
       paginations: {
         // 分页属性
         page_index: 1, // 当前位于哪页
@@ -96,70 +94,58 @@ export default {
         page_sizes: [8, 15, 20, 25], //每页显示多少条
         layout: "total, sizes, prev, pager, next, jumper", // 翻页属性
       },
+      delRow: "",
       //当前播放的音乐id
       activeMusicId: "",
       activePosterSrc: "",
       //音乐播放器是否显示
       audioIsShow: false,
-      userid: "",
-      maxCollectionsStyle: "",
-      maxCollections: "",
     };
   },
   created() {
-    //获取用户信息
-    this.userid = JSON.parse(localStorage.getItem("userInfo"))._id;
-    this.getUserLike();
+    this.style = this.$route.params.style;
+    this.getStyleMusic();
   },
   methods: {
-    //获取用户收藏音乐
-    getUserLike() {
+    //获取类型音乐
+    getStyleMusic() {
       this.$axios
-        .get(`http://localhost:8633/api/music/userlike?userid=${this.userid}`)
+        .post("http://localhost:8633/api/music/style", {
+          style: this.style,
+        })
         .then((res) => {
-          this.allTableData = res.data.result;
-          //处理用户音乐收藏数据，进行累加
-          this.collectionRecommend = this.countHandle(this.allTableData);
-          //将处理后的对象进行排序处理
-          this.sortHandle(this.collectionRecommend);
-          //初始化页码的total数
+          console.log(res);
+          this.allTableData = res.data;
           this.setPaginations();
-        })
-        .catch((err) => console.log(err));
+        });
     },
-    //取消音乐收藏
-    cancelCollection(row) {
+    //添加音乐收藏
+    async collectionMusic(row) {
+      const { _id, mobile } = JSON.parse(localStorage.getItem("userInfo"));
       const musicid = row._id;
-      this.$confirm("您确定要取消该音乐收藏吗", "取消音乐收藏提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      const res = await this.$axios.post(
+        "http://localhost:8633/api/music/userlike",
+        {
+          userid: _id,
+          mobile,
+          musicid,
+          date: new Date(),
+        }
+      );
+      const { data, status } = res;
+      const { result } = data;
+      if (status === 200) {
+        //刷新表单数据,隐藏表单;刷新页面上的用户数据
+        return this.$message({
+          message: result,
+          type: "success",
+        });
+      }
+
+      this.$message({
+        message: result,
         type: "warning",
-      })
-        .then(() => {
-          //发起取消音乐收藏请求
-          this.$axios
-            .post(`http://localhost:8633/api/music/userlike/del`, {
-              musicid,
-              userid: this.userid,
-            })
-            .then((res) => {
-              const { status, result } = res.data;
-              if (status !== 200) {
-                return this.$message({
-                  message: "收藏音乐移除失败！",
-                  type: "danger",
-                });
-              }
-              //音乐收藏移除成功，刷新音乐收藏页面
-              this.getUserLike();
-              this.$message({
-                message: result,
-                type: "success",
-              });
-            })
-            .catch((err) => console.log(err));
-        })
-        .catch(() => {});
+      });
     },
     //播放音乐
     playMusic(row) {
@@ -172,7 +158,7 @@ export default {
       //将播放音乐信息保存进入vuex
       this.$store.commit("addPlayRecord", row);
       //刷新页面获取最新播放次数信息
-      this.getUserLike();
+      this.getAdminLikes();
     },
     // 设置当前页
     handleCurrentChange(page) {
@@ -182,10 +168,10 @@ export default {
         return index >= sortnum;
       });
       // 设置默认分页数据
-      this.userLikes = table.filter((item, index) => {
+      this.adminLikes = table.filter((item, index) => {
         return index < this.paginations.page_size;
       });
-      this.userLikes = table.filter((item, index) => {
+      this.adminLikes = table.filter((item, index) => {
         return index < this.paginations.page_size;
       });
     },
@@ -194,7 +180,7 @@ export default {
       // 切换size
       this.paginations.page_index = 1;
       this.paginations.page_size = page_size;
-      this.userLikes = this.allTableData.filter((item, index) => {
+      this.adminLikes = this.allTableData.filter((item, index) => {
         return index < page_size;
       });
     },
@@ -205,41 +191,12 @@ export default {
       this.paginations.page_index = 1;
       this.paginations.page_size = 8;
       // 设置默认分页数据
-      this.userLikes = this.allTableData.filter((item, index) => {
+      this.adminLikes = this.allTableData.filter((item, index) => {
         return index < this.paginations.page_size;
       });
     },
-    //处理对象数据，进行累加
-    countHandle(targetArr) {
-      const obj = {};
-      targetArr.forEach((item) => {
-        const { style } = item;
-        if (obj[style]) {
-          obj[style]++;
-        } else {
-          obj[style] = 1;
-        }
-      });
-      return obj;
-    },
-    //将处理后的对象进行排序处理
-    sortHandle(targetObj) {
-      let max = 0;
-      let maxKey = "";
-      for (const item in targetObj) {
-        if (targetObj[item] > max) {
-          max = targetObj[item];
-          maxKey = item;
-        }
-      }
-      this.maxCollections = max;
-      this.maxCollectionsStyle = maxKey;
-    },
-    userCollectRecommend() {
-      this.$router.push({
-        name: "user-collet-recom",
-        params: { style: this.maxCollectionsStyle },
-      });
+    toUserlike() {
+      this.$router.push({ name: "user-like" });
     },
   },
   computed: {
@@ -253,10 +210,10 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-#user-like {
+<style lang="scss" scoped>
+#user-recommend {
   height: 100vh;
-  background-color: #ecf5ff;
+  background-color: rgb(214, 253, 247);
   .music-audio {
     display: flex;
     width: 60vw;

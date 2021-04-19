@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-16 17:20:27
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-18 19:19:50
+ * @LastEditTime: 2021-04-19 11:01:15
  * @Description: file content
  * @FilePath: \music-user\src\components\user\UserLike.vue
 -->
@@ -25,7 +25,7 @@
         </el-table-column>
         <el-table-column align="center" prop="language" label="语种"></el-table-column>
         <el-table-column align="center" prop="style" label="风格"></el-table-column>
-        <el-table-column align="center" prop="playcount" label="播放次数"></el-table-column>
+        <!-- <el-table-column align="center" prop="playcount" label="播放次数"></el-table-column> -->
         <el-table-column align="center" prop="date" label="收藏时间"></el-table-column>
         <el-table-column label="播放" align="center">
           <template slot-scope="scope">

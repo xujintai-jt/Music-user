@@ -2,13 +2,13 @@
  * @Author: xujintai
  * @Date: 2021-04-17 14:03:04
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-19 22:05:58
+ * @LastEditTime: 2021-04-20 09:19:38
  * @Description: file content
  * @FilePath: \music-user\src\components\user\UserColletRecom.vue
 -->
 <template>
   <div id="user-recommend">
-    <h1>根据您的音乐收藏，向您推荐{{style}}类音乐</h1>
+    <h1>根据您的音乐收藏，向您推荐{{artist}}的音乐</h1>
     <!-- 歌曲数据表 -->
     <div style="width:100%;background-color:#f40;">
       <el-table :data="allTableData" class="song-table" border style="width: 99%">
@@ -83,8 +83,8 @@
 export default {
   data() {
     return {
-      //音乐风格
-      style: "",
+      //歌手音乐
+      artist: "",
       allTableData: [],
       paginations: {
         // 分页属性
@@ -103,15 +103,15 @@ export default {
     };
   },
   created() {
-    this.style = this.$route.params.style;
+    this.artist = this.$route.params.artist;
     this.getStyleMusic();
   },
   methods: {
-    //获取类型音乐
+    //获取歌手音乐
     getStyleMusic() {
       this.$axios
-        .post("http://localhost:8633/api/music/style", {
-          style: this.style,
+        .post("http://localhost:8633/api/music/artist", {
+          artist: this.artist,
         })
         .then((res) => {
           console.log(res);

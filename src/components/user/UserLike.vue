@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-16 17:20:27
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-19 22:04:22
+ * @LastEditTime: 2021-04-20 09:15:21
  * @Description: file content
  * @FilePath: \music-user\src\components\user\UserLike.vue
 -->
@@ -75,7 +75,7 @@
 
     <!-- 推荐音乐类别 -->
     <footer v-if="allTableData.length>0">
-      <h2>根据您的收藏音乐，我们猜测您可能喜欢{{maxCollectionsStyle}}类的歌曲，因此我们向您推荐这些歌曲</h2>
+      <h2>根据您的收藏音乐，我们猜测您可能喜欢{{maxCollectionsArtist}}的歌曲，因此我们向您推荐这些歌曲</h2>
       <el-button class="el-button el-button--success is-plain" @click="userCollectRecommend">推荐入口</el-button>
     </footer>
   </div>
@@ -102,7 +102,7 @@ export default {
       //音乐播放器是否显示
       audioIsShow: false,
       userid: "",
-      maxCollectionsStyle: "",
+      maxCollectionsArtist: "",
       maxCollections: "",
     };
   },
@@ -213,11 +213,11 @@ export default {
     countHandle(targetArr) {
       const obj = {};
       targetArr.forEach((item) => {
-        const { style } = item;
-        if (obj[style]) {
-          obj[style]++;
+        const { artist } = item;
+        if (obj[artist]) {
+          obj[artist]++;
         } else {
-          obj[style] = 1;
+          obj[artist] = 1;
         }
       });
       return obj;
@@ -233,12 +233,12 @@ export default {
         }
       }
       this.maxCollections = max;
-      this.maxCollectionsStyle = maxKey;
+      this.maxCollectionsArtist = maxKey;
     },
     userCollectRecommend() {
       this.$router.push({
         name: "user-collet-recom",
-        params: { style: this.maxCollectionsStyle },
+        params: { artist: this.maxCollectionsArtist },
       });
     },
   },

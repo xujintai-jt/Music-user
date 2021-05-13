@@ -2,7 +2,7 @@
  * @Author: xujintai
  * @Date: 2021-04-17 10:34:23
  * @LastEditors: xujintai
- * @LastEditTime: 2021-04-18 19:20:30
+ * @LastEditTime: 2021-05-13 18:19:24
  * @Description: file content
  * @FilePath: \music-user\src\components\user\GuessUserLike.vue
 -->
@@ -53,7 +53,7 @@
 
     <!-- 页面跳转 -->
     <footer v-if="allTableData.length>0">
-      <h2>根据您此次登录的播放记录，我们猜测您可能喜欢{{activeStyle}}类的歌曲，因此我们向您推荐这些歌曲</h2>
+      <h2>根据您此次登录的播放记录，我们猜测您可能喜欢{{maxCollectionsStyle}}类的歌曲，因此我们向您推荐这些歌曲</h2>
       <el-button class="el-button el-button--success is-plain" @click="userRecommend">推荐入口</el-button>
     </footer>
   </div>
@@ -63,9 +63,12 @@
 export default {
   data() {
     return {
-      allTableData: [],
+      //播放推荐
+      playRecommend: "",
       //播放记录中记录数最多的音乐类型
-      activeStyle: "",
+      maxCollectionsStyle: "",
+      maxCollections: "",
+      allTableData: [],
       paginations: {
         // 分页属性
         page_index: 1, // 当前位于哪页
@@ -93,10 +96,14 @@ export default {
         localStorage.getItem(`${mobile}playRecord`)
       );
       if (playRecord) {
-        this.compareHandle(playRecord);
+        console.log(playRecord);
         this.allTableData = playRecord;
-        this.activeStyle = this.allTableData[0].style;
-        console.log(this.activeStyle);
+        //处理用户音乐播放数据，进行累加
+        this.playRecommend = this.styleHandle(playRecord);
+        console.log(this.playRecommend);
+        //将处理后的对象进行排序处理
+        this.sortHandle(this.playRecommend);
+        console.log(this.maxCollectionsStyle);
       }
       this.setPaginations();
     },
@@ -181,10 +188,36 @@ export default {
       };
       targetArr.sort(compare("count"));
     },
+    //处理对象数据，进行累加
+    styleHandle(targetArr) {
+      const obj = {};
+      targetArr.forEach((item) => {
+        const { style } = item;
+        if (obj[style]) {
+          obj[style] += item.count;
+        } else {
+          obj[style] = item.count;
+        }
+      });
+      return obj;
+    },
+    //将处理后的对象进行排序处理
+    sortHandle(targetObj) {
+      let max = 0;
+      let maxKey = "";
+      for (const item in targetObj) {
+        if (targetObj[item] > max) {
+          max = targetObj[item];
+          maxKey = item;
+        }
+      }
+      this.maxCollections = max;
+      this.maxCollectionsStyle = maxKey;
+    },
     userRecommend() {
       this.$router.push({
         name: "user-recommend",
-        params: { style: this.activeStyle },
+        params: { style: this.maxCollectionsStyle },
       });
     },
   },
